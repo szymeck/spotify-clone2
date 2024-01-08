@@ -10,6 +10,15 @@ export interface UserDetails {
     payment_method?:Stripe.PaymentMethod[Stripe.PaymentMethod.Type];
 };
 
+export interface Product {
+    id:string;
+    active?:boolean;
+    name?:string;
+    description?:string;
+    image?:string;
+    metadata?:Stripe.Metadata;
+}
+
 export interface Price {
     id:string;
     product_id?:string;
@@ -18,7 +27,11 @@ export interface Price {
     unit_amount?:number;
     currency?:string;
     type?:Stripe.Price.Type;
-    
+    interval?:Stripe.Price.Recurring.Interval;
+    interval_count?:number;
+    trial_period_days?:number | null;
+    metadata?:Stripe.Metadata;
+    products?:Product;
 
 }
 
@@ -28,7 +41,7 @@ export interface Subscription {
     status?:Stripe.Subscription.Status;
     metadata?:Stripe.Metadata;
     price_id?:string;
-    quantity?:string;
+    quantity?:number;
     cancel_at_perriod_end?:boolean;
     created:string;
     current_period_start:string;
